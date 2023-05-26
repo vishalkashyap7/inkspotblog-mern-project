@@ -1,5 +1,7 @@
 import "./post.css";
 import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
+import { useContext } from "react";
 
 function MyComponent({ content }) {
   return (
@@ -7,9 +9,11 @@ function MyComponent({ content }) {
   );
 }
 
-export default function Post1({ post }) {
 
-  const PF = "http://localhost:5000/images/";//public folder
+export default function Post1({ post }) {
+  const { url } = useContext(Context);
+
+  const PF = `${url}/images/`;//public folder
   return (
     <div className="post animated-div" data-aos="fade-up">
       {post.photo && <img className="postImg" src={PF + post.photo} alt="" />}

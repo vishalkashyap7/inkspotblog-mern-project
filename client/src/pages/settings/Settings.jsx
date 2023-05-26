@@ -20,7 +20,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 export default function Settings() {
   const navigate = useNavigate();
 
-  const { user, dispatch } = useContext(Context);
+  const { user, dispatch, url } = useContext(Context);
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
@@ -36,7 +36,7 @@ export default function Settings() {
     // console.log("checked item is ", isChecked);
   };
 
-  const PF = "http://localhost:5000/images/";
+  const PF = `${url}/images/`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ export default function Settings() {
     // console.log("handle submit clicked", user.username, currentPassword);
 
     // const passRes = await axios.post(
-    //   "http://localhost:5000/api/auth/checkpassword",
+    //   "${url}/api/auth/checkpassword",
     //   {
     //     username: user.username,
     //     password: currentPassword,
@@ -67,13 +67,13 @@ export default function Settings() {
       data.append("file", file);
       updatedUser.profilePic = filename;
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
+        await axios.post(`${url}/api/upload`, data);
       } catch (err) {}
     }
     // if (passRes.data.data) {
       try {
         const res = await axios.put(
-          "http://localhost:5000/api/users/" + user._id,
+          `${url}/api/users/` + user._id,
               updatedUser,
               {
                 headers: {
@@ -118,7 +118,7 @@ export default function Settings() {
   const handleDelete = async () => {
     // console.log("handle delete called", confPass);
     try {
-      await axios.delete(`http://localhost:5000/api/users/${user._id}`, {
+      await axios.delete(`${url}/api/users/${user._id}`, {
         data: { userId: user._id},
         headers: {
           token: "bearer " + localStorage.getItem("accessToken"),

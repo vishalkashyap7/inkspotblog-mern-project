@@ -9,13 +9,13 @@ import GoogleLogin from "./GoogleLogin";
 export default function Login() {
   const userRef = useRef();
   const passwordRef = useRef();
-  const { dispatch, isFetching } = useContext(Context); //both are destructured from the useContext()
+  const { dispatch, isFetching, url } = useContext(Context); //both are destructured from the useContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" }); //isFetching true kr dega
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post(`${url}/api/auth/login`, {
         username: userRef.current.value,
         password: passwordRef.current.value,
       });

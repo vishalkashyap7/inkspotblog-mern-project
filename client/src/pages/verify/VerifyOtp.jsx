@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 export default function VerifyOtp() {
-  const { dispatch } = useContext(Context);
+  const { dispatch, url } = useContext(Context);
   const navigate = useNavigate();
   const { user } = useContext(Context);
 
@@ -21,7 +21,7 @@ export default function VerifyOtp() {
     // dispatch({ type: "REGISTER_START" });
     try {
       // console.log(username,email, password, "trying to register");
-      const res = await axios.post("http://localhost:5000/api/auth/verify", {
+      const res = await axios.post(`${url}/api/auth/verify`, {
         username : username,
         otp
       });

@@ -21,30 +21,30 @@ function MyComponent({ content }) {
 export default function SinglePost() {
   const location = useLocation();
   const navigate = useNavigate();
-
+  
+  const { user, url } = useContext(Context);
   const path = location.pathname.split("/")[2]; //just splitted the path for id as post url is followed by id
 
   const [post, setPost] = useState({});
-  const PF = "http://localhost:5000/images/";
-  const { user } = useContext(Context);
+  const PF = `${url}/images/`;
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get("http://localhost:5000/api/posts/" + path);
+      const res = await axios.get(`${url}/api/posts/` + path);
       // console.log(res);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
     };
     getPost();
-  }, [path]); //when post path ie _id changed then run fetch again
+  }, [path, url]); //when post path ie _id changed then run fetch again
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${post._id}`, {
+      await axios.delete(`${url}/api/posts/${post._id}`, {
         data: { username: user.username },
         headers: {
           token: "bearer " + localStorage.getItem("accessToken"),
@@ -68,7 +68,7 @@ export default function SinglePost() {
   const handleUpdate = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/posts/${post._id}`,
+        `${url}/api/posts/${post._id}`,
         {
           username: user.username,
           title,

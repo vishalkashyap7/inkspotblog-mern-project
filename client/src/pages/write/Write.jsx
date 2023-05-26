@@ -13,7 +13,7 @@ export default function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
-  const { user } = useContext(Context);
+  const { user, url } = useContext(Context);
 
   let userR = JSON.parse(localStorage.getItem("user"));
   let veri = true;
@@ -45,11 +45,11 @@ export default function Write() {
       data.append("file", file);
       newPost.photo = filename;
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
+        await axios.post(`${url}/api/upload`, data);
       } catch (err) {}
     }
     try {
-      const res = await axios.post("http://localhost:5000/api/posts", newPost, {
+      const res = await axios.post(`${url}/api/posts`, newPost, {
         headers: {
           token: "bearer " + localStorage.getItem("accessToken"),
         },
@@ -169,11 +169,11 @@ export default function Write() {
 //       data.append("file", file);
 //       newPost.photo = filename;
 //       try {
-//         await axios.post("http://localhost:5000/api/upload", data);
+//         await axios.post(`${url}/api/upload`, data);
 //       } catch (err) {}
 //     }
 //     try {
-//       const res = await axios.post("http://localhost:5000/api/posts", newPost, {
+//       const res = await axios.post(`${url}/api/posts`, newPost, {
 //         headers: {
 //           token: "bearer " + localStorage.getItem("accessToken"),
 //         },

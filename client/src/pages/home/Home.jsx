@@ -10,7 +10,7 @@ import { Context } from "../../context/Context";
 import jwtDecode from "jwt-decode";
 
 export default function Home() {
-  const { user, dispatch } = useContext(Context);
+  const { user, dispatch, url } = useContext(Context);
 
   const [posts, setPosts] = useState([]);
   const { search } = useLocation();
@@ -18,7 +18,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/posts" + search);
+        const res = await axios.get(`${url}/api/posts` + search);
         setPosts(res.data);
       } catch (err) {
         toast.error("Server error, Please retry!", {
@@ -28,7 +28,7 @@ export default function Home() {
       }
     };
     fetchPosts();
-  }, [search]);
+  }, [search, url]);
 
   //just checking the token is still valid or not
   useEffect(() => {

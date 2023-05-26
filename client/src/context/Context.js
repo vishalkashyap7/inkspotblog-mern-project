@@ -23,6 +23,7 @@ export const ContextProvider = ({ children }) => {
         isFetching: state.isFetching,
         error: state.error,
         dispatch,//note this point Vishal
+        url:"http://localhost:5000"//backend link
       }}
     >
       {children}

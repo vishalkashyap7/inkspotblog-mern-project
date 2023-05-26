@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "./search.css";
 import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
 
 function MyComponent({ content }) {
   return (
     <div className="paraSearch" dangerouslySetInnerHTML={{ __html: content }} />
   );
 }
-
 
 function SearchResults({ query, results }) {
   // console.log(query, results);
@@ -24,19 +24,20 @@ function SearchResults({ query, results }) {
 }
 
 const Search = () => {
+  const { url } = useContext(Context);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
   useEffect(() => {
     const handleSearch = async (query) => {
       const response = await axios.get(
-        `http://localhost:5000/api/posts/search?query=${query}`
+        `${url}/api/posts/search?query=${query}`
       );
       // console.log("response is ", response.data);
       setResults(response.data);
     };
     handleSearch(query);
-  }, [query]);
+  }, [query, url]);
   function handleSearchForm(e) {
     e.preventDefault();
   }
@@ -64,7 +65,7 @@ const Search = () => {
             <Link to={`/post/${result._id}`} className="link" key={i}>
               <div className="searchBoxResult">
                 <h2>{result.title}</h2>
-                
+
                 <MyComponent content={result.desc} />
                 {/* <p className="paraSearch">{}</p> */}
                 <p className="dateSearch">

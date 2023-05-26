@@ -19,8 +19,8 @@ export default function TopBar() {
   }, [location]);
 
   //   console.log("active link ", activeLink);
-  const { user, dispatch } = useContext(Context);
-  const PF = "http://localhost:5000/images/";
+  const { user, dispatch, url } = useContext(Context);
+  const PF = `${url}/images/`;
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");

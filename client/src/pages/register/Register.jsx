@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import GoogleLogin from "../login/GoogleLogin";
 
 export default function Register() {
-  const { dispatch, isFetching } = useContext(Context);
+  const { dispatch, isFetching, url } = useContext(Context);
   const navigate = useNavigate();
   const usernameRef = useRef("");
   const emailRef = useRef("");
@@ -18,7 +18,7 @@ export default function Register() {
     e.preventDefault();
     dispatch({ type: "REGISTER_START" });
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
+      const res = await axios.post(`${url}/api/auth/register`, {
         username: usernameRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,
@@ -106,7 +106,7 @@ export default function Register() {
 //     dispatch({ type: "REGISTER_START" });
 //     try {
 //       // console.log(username,email, password, "trying to register");
-//       const res = await axios.post("http://localhost:5000/api/auth/register", {
+//       const res = await axios.post("${url}/api/auth/register", {
 //         username,
 //         email,
 //         password,

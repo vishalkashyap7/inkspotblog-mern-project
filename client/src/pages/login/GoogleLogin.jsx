@@ -4,14 +4,14 @@ import { toast } from "react-toastify";
 import { Context } from "../../context/Context";
 
 const GoogleLogin = () => {
-  const { dispatch } = useContext(Context); //both are destructured from the useContext()
+  const { dispatch, url } = useContext(Context); //both are destructured from the useContext()
   //google signin botton callback
   const handleCallbackResponse = (response) => {
     const postData = async () => {
       dispatch({ type: "LOGIN_START" });//isFetching true kr dega
       try {
         const res = await axios.post(
-          "http://localhost:5000/api/auth/googlesignin",
+          `${url}/api/auth/googlesignin`,
           { response }
         );
         // console.log(response, "response from google");
