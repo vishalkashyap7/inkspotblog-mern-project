@@ -1,0 +1,96 @@
+.searchDiv {
+  margin: 40px;
+  padding-bottom: 100px;
+  min-height: 800px;
+}
+
+.searchBar {
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid black;
+  border-radius: 27px;
+}
+
+.searchBar > input {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  background-color: transparent;
+  margin-left: 12px;
+  outline: none;
+  font-size: 18px;
+}
+.searchBar > input:active {
+  border: none;
+}
+
+.searchIcon {
+  margin-left: 8px;
+}
+
+.searchResult {
+  margin: 10px;
+  padding: 10px;
+}
+
+.searchBoxResult {
+  background-color: white;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+}
+.resultsOfSearch1 {
+  color: grey;
+  text-align: center;
+  font-size: large;
+}
+
+.searchBoxResult > h3 {
+  color: rgb(45, 44, 44);
+}
+
+.searchBoxResult > .paraSearch {
+  color: rgb(85, 84, 84);
+  padding-top: 5px;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.searchBoxResult > .dateSearch {
+  padding-top: 10px;
+  color: grey;
+  font-size: small;
+}
+
+@media screen and (max-width: 650px) {
+  .searchDiv {
+    margin: 10px;
+    padding-bottom: 100px;
+  }
+
+  .searchResult {
+    padding-left: 0px;
+    padding-right: 0px;
+
+  }
+
+}
+
+@media screen and (max-width: 350px) {
+    .searchResult {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    
+    }
+}

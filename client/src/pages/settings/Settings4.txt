@@ -1,0 +1,189 @@
+import "./settings.css";
+import Sidebar from "../../components/sidebar/Sidebar";
+import { useContext, useState } from "react";
+import { Context } from "../../context/Context";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
+
+export default function Settings() {
+  const navigate = useNavigate();
+
+  const { user, dispatch } = useContext(Context);
+  const [file, setFile] = useState(null);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState("1234");
+  const [currentPassword, setCurrentPassword] = useState("");
+  // const [success, setSuccess] = useState("");
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    console.log("checked item is ", isChecked);
+  };
+
+  const PF = "http://localhost:5000/images/";
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("checked item is ", isChecked);
+
+    dispatch({ type: "UPDATE_START" });
+    const updatedUser = {
+      userId: user._id,
+      // username,
+      // email,
+      ...(isChecked && { password }),
+    };
+    // console.log("handle submit clicked", user.username, currentPassword);
+
+    const passRes = await axios.post(
+      "http://localhost:5000/api/auth/checkpassword",
+      {
+        username: user.username,
+        password: currentPassword,
+      }
+    );
+
+    // console.log("checkpass router response", passRes.data.data);
+    if (file) {
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      updatedUser.profilePic = filename;
+      try {
+        await axios.post("http://localhost:5000/api/upload", data);
+      } catch (err) {}
+    }
+    if (passRes.data.data) {
+      try {
+        const res = await axios.put(
+          "http://localhost:5000/api/users/" + user._id,
+          updatedUser
+        );
+        dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+        toast.success("Profile has been updated", {
+          position: "bottom-center",
+          autoClose: 3000,
+        });
+      } catch (err) {
+        dispatch({ type: "UPDATE_FAILURE" });
+        toast.error("Update Failure", {
+          position: "bottom-center",
+          autoClose: 2500,
+        });
+      }
+    } else {
+      toast.warning("Your password is wrong, Please retry", {
+        position: "bottom-center",
+        autoClose: 2500,
+      });
+    }
+  };
+
+
+  //to delete the account // very important
+  const handleDelete = async () => {
+    console.log("handle delete called");
+    try {
+      await axios.delete(`http://localhost:5000/api/users/${user._id}`, {
+        data: { userId: user._id },
+        headers: {
+        token: "bearer " + localStorage.getItem('accessToken'),
+      }});
+      dispatch({ type: "LOGOUT" });
+      
+      toast.success("User deleted", {
+        position: "bottom-center",
+        autoClose: 2500,
+      });
+      // window.location.replace("/");
+      navigate('/');
+    } catch (err) {
+      toast.error("Post delete failure", {
+        position: "bottom-center",
+        autoClose: 2500,
+      });
+    }
+  };
+
+
+  // console.log("user is ",user);
+  return (
+    <div className="settings">
+      <div className="settingsWrapper">
+        <div className="settingsTitle">
+          <span className="settingsUpdateTitle">Update Your Account</span>
+          <span className="settingsDeleteTitle"><button onClick={handleDelete}>Delete Account</button></span>
+        </div>
+        <form className="settingsForm" onSubmit={handleSubmit}>
+          <label>Profile Picture</label>
+          <div className="settingsPP">
+            <img
+              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
+              alt=""
+            />
+            <label className="settingsAddIcon" htmlFor="fileInput">
+              <i className="settingsPPIcon far fa-user-circle"></i>
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </div>
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            placeholder={user.username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={"true"}
+            className="changeEmail"
+          />
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            placeholder={user.email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={"true"}
+            className="changeEmail"
+          />
+
+          <label>Want to change password?</label>
+          <div>
+            <label class="switch">
+              <input type="checkbox" onChange={handleCheckboxChange} />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          {isChecked && (
+            <>
+              <label>New Password</label>
+              <input
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </>
+          )}
+          <label>Current Password</label>
+          <input
+            type="password"
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            required
+          />
+          <button className="settingsSubmit" type="submit">
+            Update
+          </button>
+        </form>
+      </div>
+      <Sidebar />
+    </div>
+  );
+}

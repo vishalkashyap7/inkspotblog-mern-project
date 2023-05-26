@@ -1,0 +1,25 @@
+.not-found-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.not-found-heading {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.not-found-message {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Uncomment and customize the following styles if you add a link */
+
+.not-found-link {
+  color: blue;
+  text-decoration: none;
+}
+
+.not-found-link:hover {
+  text-decoration: underline;
+}

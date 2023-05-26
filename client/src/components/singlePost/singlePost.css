@@ -1,0 +1,170 @@
+.singlePost {
+  flex: 1;
+}
+
+.singlePostWrapper {
+  padding: 20px;
+}
+
+.singlePostImg {
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.singlePostTitle {
+  text-align: center;
+  margin: 10px 0 10px 0;
+  font-size: 28px;
+  font-family: "Lora", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.singlePostTitleInput {
+  margin: 10px;
+  font-family: "Lora", serif;
+  font-size: 28px;
+  text-align: center;
+  border: none;
+  color: gray;
+  border-bottom: 1px solid lightgray;
+}
+
+.singlePostTitleInput:focus {
+  outline: none;
+}
+.singlePostEdit {
+  float: right;
+  font-size: 16px;
+  display: flex;
+  /* align-items: right; */
+  justify-content: right;
+}
+
+.singlePostDescInput {
+  border: none;
+  color: #666;
+  font-size: 18px;
+  line-height: 25px;
+  width: 100%;
+  min-height: 170px;
+}
+
+.singlePostDescInput:focus {
+  outline: none;
+}
+
+.singlePostIcon {
+  color: white;
+}
+
+.singlePostInfo {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #be9656;
+  font-family: "Varela Round", Arial, Helvetica, sans-serif;
+}
+
+.singlePostAuthor {
+  margin-left: 5px;
+}
+
+.singlePostDesc {
+  color: #666;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: justify;
+}
+
+.singlePostDesc::first-letter {
+  margin-left: 20px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.singlePostEditIcon {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(190, 74, 54);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.singlePostDeleteIcon {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(0, 76, 76);
+  border-radius: 50%;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+}
+.singlePostButton {
+  width: 100px;
+  border: none;
+  background-color: teal;
+  padding: 10px 30px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+
+  align-self: flex-end;
+  margin-top: 20px;
+}
+
+.singlePostDescInput .ql-editor {
+  background: repeating-linear-gradient(
+    #f1ede9,
+    #f1ede9 26px,
+    #94acd4 27px,
+    #94acd4 28px
+  );
+}
+
+
+@media screen and (max-width: 700px) {
+  .singlePostDesc{
+    color: #666;
+    font-size: 16px;
+    line-height: 20px;
+    min-height: 250px;
+  }
+
+  .singlePostImg {
+    height: 160px;
+  }
+
+  .singlePostTitle {
+    font-size: 20px;
+  }
+
+  .singlePostAuthor, .singlePostDate {
+    font-size: small;
+  }
+
+  .singlePostEdit {
+    font-size: 12px;
+  }
+
+  .singlePostEditIcon, .singlePostDeleteIcon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .singlePostTitleInput {
+    margin: 10px;
+    margin-left: 0px;
+    font-size: 20px;
+    text-align: left;
+  }
+  
+}

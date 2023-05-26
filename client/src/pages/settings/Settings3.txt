@@ -1,0 +1,158 @@
+import "./settings.css";
+import Sidebar from "../../components/sidebar/Sidebar";
+import { useContext, useState } from "react";
+import { Context } from "../../context/Context";
+import axios from "axios";
+
+export default function Settings() {
+  const { user, dispatch } = useContext(Context);
+  const [file, setFile] = useState(null);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState("1234");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    console.log("checked item is ",isChecked);
+  };
+
+  const PF = "http://localhost:5000/images/"
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+    console.log("checked item is ",isChecked);
+
+    dispatch({ type: "UPDATE_START" });
+    const updatedUser = {
+      userId: user._id,
+      // username,
+      // email,
+      ...(isChecked && { password })
+    };
+    // console.log("handle submit clicked", user.username, currentPassword);
+
+    
+    const passRes = await axios.post('http://localhost:5000/api/auth/checkpassword', {
+      username: user.username,
+      password: currentPassword,
+    });
+
+    // console.log("checkpass router response", passRes.data.data);
+    if (file) {
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      updatedUser.profilePic = filename;
+      try {
+        await axios.post("http://localhost:5000/api/upload", data);
+      } catch (err) {}
+    }
+    if(passRes.data.data)
+    {
+      try {
+        const res = await axios.put("http://localhost:5000/api/users/" + user._id, updatedUser);
+        setSuccess("done");
+        dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+      } catch (err) {
+        dispatch({ type: "UPDATE_FAILURE" });
+      }
+    }
+    else
+    {
+      setSuccess("pass")
+    }
+    };
+
+  // console.log("user is ",user);
+  return (
+    <div className="settings">
+      <div className="settingsWrapper">
+        <div className="settingsTitle">
+          <span className="settingsUpdateTitle">Update Your Account</span>
+          <span className="settingsDeleteTitle">Delete Account</span>
+        </div>
+        <form className="settingsForm" onSubmit={handleSubmit}>
+          <label>Profile Picture</label>
+          <div className="settingsPP">
+            <img
+              src={file ? URL.createObjectURL(file) : PF+user.profilePic}
+              alt=""
+            />
+            <label className="settingsAddIcon" htmlFor="fileInput">
+              <i className="settingsPPIcon far fa-user-circle"></i>
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </div>
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            placeholder={user.username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={"true"}
+            className="changeEmail"
+          />
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            placeholder={user.email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={"true"}
+            className="changeEmail"
+          />
+
+          <label>Want to change password?</label>
+          <div>
+          <label class="switch">
+            <input type="checkbox" onChange={handleCheckboxChange}/>
+            <span class="slider round"></span>
+          </label>
+          </div>
+          {isChecked &&<><label>New Password</label>
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          /></>}
+          <label>Current Password</label>
+          <input
+            type="password"
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            required
+          />
+          <button className="settingsSubmit" type="submit">
+            Update
+          </button>
+          {success==="done" && (
+            <span
+              style={{ color: "green", textAlign: "center", marginTop: "20px" }}
+            >
+              Profile has been updated...
+            </span>
+          )}
+          {success==="pass" && (
+            <span
+              style={{ color: "red", textAlign: "center", marginTop: "20px" }}
+            >
+              Your password is wrong, Please retry
+            </span>
+          )}
+          
+        </form>
+      </div>
+      <Sidebar />
+    </div>
+  );
+}

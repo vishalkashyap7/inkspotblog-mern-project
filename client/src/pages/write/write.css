@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+
+.infoHomePage {
+  background-color: rgb(252, 208, 208);
+  text-align: center;
+  padding: 30px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 200;
+  font-size: 20px;
+}
+
+.infoHomePage > i {
+  color: rgb(206, 4, 4);
+}
+
+.write{
+  /* margin-top: 50px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  margin: 25px auto;
+}
+
+
+
+.fileInputOuter {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.writeIcon {
+  color: rgb(129, 125, 125);
+  font-size: 25px;
+}
+
+.writeInputTitle {
+  width: 100%;
+  border: none;
+  margin-left: 10px;
+  font-size: 25px;
+  font-size: 30px;
+  padding: 15px;
+  background: transparent;
+}
+
+.writeInputTitle::placeholder {
+  color: rgb(189, 185, 185);
+  font-weight: 400;
+}
+
+.writeInputTitle:focus {
+  outline-style: none;
+}
+
+.editor-container-write .ql-editor {
+  /* margin-left: 20px;  */
+  min-height: 500px;
+  width: 100%;
+
+  background: repeating-linear-gradient(
+    #f1ede9,
+    #f1ede9 26px,
+    #94acd4 27px,
+    #94acd4 28px
+  );
+}
+
+.writeFormGroup> .editor-container-write{
+  width: 100%
+}
+/* .write {
+} */
+
+/* .writeImg {
+  margin-left: 150px;
+  width: 70vw;
+  height: 250px;
+  border-radius: 10px;
+  object-fit: cover;
+} */
+
+.writeImg {
+  width: 100%;
+  height: 250px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.writeForm {
+  width: 100%;
+}
+
+.writeFormGroup {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-direction: row;
+}
+
+
+
+/* .writeText {
+} */
+
+.writeSubmit {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  background-color: teal;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 700px) {
+  .writeInputTitle{
+    margin-left: 0;
+    padding: 15px 15px 15px 5px;
+    font-size: 19px;
+  }
+
+  .writeImg {
+    width: 100%;
+    height: 150px;
+  }
+
+  .infoHomePage {
+    padding: 20px;
+    font-size: 12px;
+  }
+}
+
+/* @import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+.write {
+  padding-top: 50px;
+}
+
+.writeImg {
+  margin-left: 150px;
+  width: 70vw;
+  height: 250px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.writeForm {
+  position: relative;
+}
+
+.writeFormGroup {
+  margin-left: 150px;
+  display: flex;
+  align-items: center;
+}
+
+.fileInputOuter {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.writeIcon {
+  color: rgb(129, 125, 125);
+  font-size: 25px;
+}
+
+.writeInput {
+  font-size: 30px;
+  border: none;
+  padding: 20px;
+  /* padding-left: ; 
+  width: 70vw;
+}
+
+.writeInput::placeholder {
+  color: rgb(189, 185, 185);
+  font-weight: 400;
+}
+
+.writeInput:focus {
+  outline-style: none;
+}
+
+.writeText {
+  width: 67vw;
+  height: 100vh;
+  font-family: inherit;
+  font-size: 20px;
+  /* padding-left: 100px; 
+  background-color: rgb(255, 255, 255);
+}
+
+.writeSubmit {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  color: white;
+  background-color: teal;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+
+.editor-container-write {
+  padding: 0px;
+}
+
+.editor-container-write .ql-editor {
+  /* margin-left: 20px; 
+
+  background: repeating-linear-gradient(
+    #f1ede9,
+    #f1ede9 26px,
+    #94acd4 27px,
+    #94acd4 28px
+  );
+  /* background: repeating-linear-gradient(#F1EDE9, #F1EDE9 20px, #94ACD4 20px, #94ACD4 21px); 
+} */

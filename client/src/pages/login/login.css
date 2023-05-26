@@ -1,0 +1,149 @@
+.login {
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #4158d0;
+  /* font-family: sans-serif; */
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+
+  /* background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("https://images.pexels.com/photos/768473/pexels-photo-768473.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"); */
+  background-size: cover;
+}
+
+.loginTitle {
+  font-size: 50px;
+}
+
+.loginForm {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.loginForm > label {
+  margin: 10px 0;
+}
+
+.loginInput {
+  padding: 10px;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.loginButton {
+  margin-top: 20px;
+  cursor: pointer;
+  background-color: lightcoral;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.loginButton:disabled {
+  cursor: not-allowed;
+  background-color: rgb(252, 173, 173);
+}
+
+.loginRegisterButton {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: teal;
+  cursor: pointer;
+  border: none;
+  padding: 10px;
+  color: white;
+  border-radius: 10px;
+}
+
+.loginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.middleLine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  rotate: 90deg;
+  color: rgb(60, 60, 60);
+}
+
+.cuttedLine {
+  width: 25px;
+  height: 1px;
+  background-color: rgb(60, 60, 60);
+}
+
+.orText {
+  padding: 7px;
+  rotate: 270deg;
+}
+
+.googleSignIn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.regButton {
+  color: rgb(0, 0, 106);
+  padding: 10px 0 10px 0;
+}
+
+.regButton:hover {
+  text-decoration: underline;
+  /* color: rgb(4, 4, 147);
+  content: "";
+  width: 30%;
+  height: 2px;
+  background-color: #17cf97;
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
+
+  transition: width 0.3s ease; */
+}
+
+.reginlogin
+{
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 650px) {
+  .loginContainer{
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .middleLine {
+    position: static;
+    transform: rotate(90deg);
+    padding: 20px;
+  }
+
+  .orText {
+    padding: 7px;
+    /* rotate: 70deg; */
+    transform: rotate(-90deg);
+  }
+  .loginForm
+  {
+    justify-content: center;
+  }
+}

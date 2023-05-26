@@ -1,0 +1,38 @@
+.footer
+{
+    padding: 50px;
+    text-align: center;
+    color: rgb(148, 145, 145);
+}
+
+.footer > div:first-child{
+    padding-bottom: 15px;
+}
+
+.linkedinButton
+{
+    text-decoration: none;
+    padding: 5px;
+    color: rgb(148, 145, 145);
+    transition: transform .2s;
+}
+
+.githubButton{
+    text-decoration: none;
+    padding: 5px;
+    color: rgb(148, 145, 145);
+    transition: transform .4s;
+}
+
+.linkedinButton i:hover{
+    /* background-color: aquamarine; */
+    color: #0077B5;   
+    transform: scale(1.2);
+}    
+
+
+.githubButton i:hover{
+    /* background-color: aqua; */
+    color: #000000;
+    transform: scale(1.2);
+}

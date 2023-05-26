@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+
+.about{
+    color: #1b2430;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    margin: 40px 70px 100px 70px;
+    font-family: sans-serif;
+    font-family: 'Kalam', cursive;
+}
+.ulofabout > li{
+    list-style: none;
+    padding: 9px 20px 9px 50px;
+    border-bottom: 1px solid #17cf97;
+    font-weight: 600;
+}
+
+.ulofabout > li:last-child{
+    list-style: none;
+    padding: 9px 20px 9px 50px;
+    border-bottom: none;
+}
+
+.ulofabout li:nth-child(even) {
+    background: #c2f4e5;
+}
+
+.ulofabout{
+    padding-left: 0;
+}
+
+.about > .top {
+    padding-top: 0;
+    border: 1px solid #17cf97;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+
+
+.topTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 45px;
+    font-size: 25px;
+    background-color: #17cf97;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    /* margin-bottom: 14px; */
+
+}
+
+@media screen and (max-width: 650px) {
+    .about{
+        margin: 40px 30px 100px 30px;
+    }
+
+    .ulofabout > li{
+        list-style: none;
+        padding: 9px 25px 9px 25px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .about{
+        margin: 40px 20px 100px 20px;
+    }
+
+    .ulofabout > li{
+        list-style: none;
+        padding: 9px 12px 9px 12px;
+    }
+}
+
