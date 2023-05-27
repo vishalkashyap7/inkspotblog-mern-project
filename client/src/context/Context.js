@@ -23,7 +23,8 @@ export const ContextProvider = ({ children }) => {
         isFetching: state.isFetching,
         error: state.error,
         dispatch,//note this point Vishal
-        url:"http://localhost:5000"//backend link
+        url:"https://inkspotblog-backend.onrender.com"//backend link
+        // url:"http://localhost:5000"//backend link for localhost
       }}
     >
       {children}

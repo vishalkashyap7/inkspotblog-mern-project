@@ -74,11 +74,6 @@ export default function Login() {
           <GoogleLogin />
         </div>
       </div>
-      {/* <button className="loginRegisterButton">
-        <Link className="link" to="/register">
-          Register
-        </Link>
-      </button> */}
     </div>
   );
 }

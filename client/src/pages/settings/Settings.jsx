@@ -19,14 +19,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 export default function Settings() {
   const navigate = useNavigate();
-
-  const { user, dispatch, url } = useContext(Context);
+  const { user, dispatch, url, isFetching } = useContext(Context);
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
-  // const [currentPassword, setCurrentPassword] = useState("");
-  // const [success, setSuccess] = useState("");
   const [open, setOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);//do user want to change password or not
   const [confPass, setConfPass] = useState("");//for confirming
@@ -82,13 +79,17 @@ export default function Settings() {
                 }
               }
         );
-        
+        setConfPass("");
+        setPassword("");
+        console.log("set new ");
         dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
         toast.success("Profile has been updated", {
           position: "bottom-center",
           autoClose: 3000,
         });
       } catch (err) {
+        setConfPass("");
+        setPassword("");
         dispatch({ type: "UPDATE_FAILURE" });
         toast.error("Update Failure", {
           position: "bottom-center",
@@ -117,6 +118,8 @@ export default function Settings() {
   //to delete the account // very important //two middleware works here, verify token and verify password
   const handleDelete = async () => {
     // console.log("handle delete called", confPass);
+    dispatch({ type: "FETCH_START" });
+
     try {
       await axios.delete(`${url}/api/users/${user._id}`, {
         data: { userId: user._id},
@@ -125,9 +128,10 @@ export default function Settings() {
           password: confPass
         },
       });
-      // setConfPass("");
+      setConfPass("");
+      setPassword("");
+      dispatch({ type: "FETCH_STOP" });
       dispatch({ type: "LOGOUT" });
-
       toast.success("User deleted successfully", {
         position: "bottom-center",
         autoClose: 2500,
@@ -135,6 +139,9 @@ export default function Settings() {
       // window.location.replace("/");
       navigate("/");
     } catch (err) {
+      setConfPass("");
+      setPassword("");
+      dispatch({ type: "FETCH_STOP" });
       toast.error("User delete failure", {
         position: "bottom-center",
         autoClose: 2500,
@@ -228,6 +235,7 @@ export default function Settings() {
               <label>New Password</label>
               <input
                 type="password"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
@@ -236,15 +244,16 @@ export default function Settings() {
           <label>Current Password</label>
           <input
             type="password"
+            value={confPass}
             onChange={(e) => setConfPass(e.target.value)}
             required
           />
-          <button className="settingsSubmit" type="submit">
+          <button className="settingsSubmit" type="submit"  disabled={isFetching}>
             Update <i className="fa-solid fa-rotate"></i>
           </button>
         </form>
         <span className="settingsDeleteTitle">
-            <Button variant="contained" color="error" onClick={handleClickOpen}>
+            <Button variant="contained" color="error" onClick={handleClickOpen} disabled={isFetching}>
               Delete Account <i className="fa-solid fa-eraser"></i>
             </Button>
           </span>

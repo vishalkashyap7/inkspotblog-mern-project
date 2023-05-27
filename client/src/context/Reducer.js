@@ -60,6 +60,16 @@ const Reducer = (state, action) => {
         isFetching: false,
         error: false,
       };
+    case "FETCH_START":
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case "FETCH_STOP":
+      return {
+        ...state,
+        isFetching: false,
+      };
     default:
       return state;
   }

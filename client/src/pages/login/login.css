@@ -5,19 +5,12 @@
   align-items: center;
   justify-content: center;
   background-color: #4158d0;
-  /* font-family: sans-serif; */
   background-image: linear-gradient(
     43deg,
     #4158d0 0%,
     #c850c0 46%,
     #ffcc70 100%
   );
-
-  /* background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://images.pexels.com/photos/768473/pexels-photo-768473.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"); */
   background-size: cover;
 }
 
@@ -55,7 +48,8 @@
 
 .loginButton:disabled {
   cursor: not-allowed;
-  background-color: rgb(252, 173, 173);
+  /* background-color: rgb(252, 173, 173); */
+  opacity: 0.5;
 }
 
 .loginRegisterButton {

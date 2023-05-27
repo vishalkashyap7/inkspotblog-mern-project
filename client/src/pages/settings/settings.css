@@ -164,3 +164,10 @@ input:checked + .slider:before {
     width: 100%;}
   
 }
+
+
+/* make button fade */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
