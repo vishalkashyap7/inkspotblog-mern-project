@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./verifyOtp.css";
 import { Context } from "../../context/Context";
 import { toast } from 'react-toastify';
@@ -48,7 +48,7 @@ export default function VerifyOtp() {
   };
   return (
     <div className="register">
-      <span className="registerTitle">Verify your OTP here</span>
+      <span className="verifyTitle">Verify your OTP here</span>
       <form className="registerForm" onSubmit={handleSubmit}>
         <label>Username</label>
         <input
@@ -70,11 +70,6 @@ export default function VerifyOtp() {
           Verify
         </button>
       </form>
-      <button className="registerLoginButton">
-        <Link className="link" to="/login">
-          Login
-        </Link>
-      </button>
     </div>
   );
 }
