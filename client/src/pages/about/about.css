@@ -63,6 +63,10 @@
         list-style: none;
         padding: 9px 25px 9px 25px;
     }
+
+    .ulofabout > li:last-child{
+        padding: 9px 25px 9px 25px;
+    }
 }
 
 @media screen and (max-width: 350px) {
@@ -71,6 +75,11 @@
     }
 
     .ulofabout > li{
+        list-style: none;
+        padding: 9px 12px 9px 12px;
+    }
+
+    .ulofabout > li:last-child{
         list-style: none;
         padding: 9px 12px 9px 12px;
     }

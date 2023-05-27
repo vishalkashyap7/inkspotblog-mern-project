@@ -98,7 +98,7 @@ router.post("/register", async (req, res) => {
     template = template.replace(
       "{info}",
       `<span>
-      <a href="http://localhost:3000/verifyotp">Click here</a> to verify
+      <a href="https://inkspotblog.netlify.app/verifyotp">Click here</a> to verify
       </span>`
     );
     sendEmail("Welcome to InkSpotBlog!", newUser.email, template);
