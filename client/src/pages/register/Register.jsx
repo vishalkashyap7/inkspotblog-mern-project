@@ -34,7 +34,7 @@ export default function Register() {
       res.data && navigate('/verifyotp');
       
     } catch (err) {
-      dispatch({ type: "REGISTER_FAILURE" });
+      dispatch({ type: "REGISTER_ERROR" });
       toast.error("Failed to create account", {
         position: "bottom-center",
         autoClose: 2500,
@@ -53,13 +53,15 @@ export default function Register() {
             className="registerInput"
             placeholder="Enter your username"
             ref={usernameRef}
+            required
           />
           <label>Email</label>
           <input
-            type="text"
+            type="email"
             className="registerInput"
             placeholder="Enter your email"
             ref={emailRef}
+            required
           />
           <label>Password</label>
           <input
@@ -67,6 +69,7 @@ export default function Register() {
             className="registerInput"
             placeholder="Enter your password"
             ref={passwordRef}
+            required
           />
           <p className="reginlogin">
             already have an account?{" "}

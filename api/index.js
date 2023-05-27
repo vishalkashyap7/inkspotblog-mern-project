@@ -13,7 +13,7 @@ const cors =require('cors');
 
 app.use(cors());//added for the error
 // app.use(cors({
-//   origin: ["https://inkspotblog.netlify.app"] //edit this
+//   origin: ["http://loca:2000", "http://local1200"] //edit this
 // }));//added for the error
 
 dotenv.config();//env file

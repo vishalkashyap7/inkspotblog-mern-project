@@ -49,7 +49,7 @@ function sendEmail(subject, toUser, bodyOfMail) {
 router.post("/register", async (req, res) => {
   try {
     const newOtp = generateOTP();
-    const salt = await bcrypt.genSalt(process.env.SALTBCRYPT);
+    const salt = await bcrypt.genSalt(Number(process.env.SALTBCRYPT));
     const templatePath = path.join(
       __dirname,
       "../templateForOtp",
