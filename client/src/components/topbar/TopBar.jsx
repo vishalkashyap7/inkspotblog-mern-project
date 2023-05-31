@@ -88,7 +88,7 @@ export default function TopBar() {
           {user ? (
             <div className="userIconTopBar">
               <Link
-                className={activeLink === "/settings" ? "linkNav" : "linkNav"}
+                // className={activeLink === "/settings" ? "linkNav" : "linkNav"}
                 to="/settings"
               >
                 <img

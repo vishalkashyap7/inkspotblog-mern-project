@@ -9,10 +9,11 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+
 function MyComponent({ content }) {
   return (
     <div
-      className="singlePostDesc"
+    className="singlePostDesc"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );
@@ -24,13 +25,14 @@ export default function SinglePost() {
   
   const { user, url } = useContext(Context);
   const path = location.pathname.split("/")[2]; //just splitted the path for id as post url is followed by id
-
+  
   const [post, setPost] = useState({});
   const PF = `${url}/images/`;
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
+  
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get(`${url}/api/posts/` + path);
@@ -94,11 +96,21 @@ export default function SinglePost() {
     }
   };
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img src={PF + post.photo} alt="" className="singlePostImg" />
+          <div className="singlePostImgWrapper">
+          <img src={PF + post.photo} alt="" className="singlePostImg" onClick={openModal} />
+          </div>
         )}
         {updateMode ? (
           <input
@@ -162,6 +174,16 @@ export default function SinglePost() {
           </button>
         )}
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modalContent">
+            <span className="closeButton" onClick={closeModal}>
+            <i className="fa-solid fa-circle-xmark"></i>
+            </span>
+            <img src={PF + post.photo} alt="" className="modalImage" onClick={closeModal} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

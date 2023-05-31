@@ -68,6 +68,8 @@
 .hrPost {
   width: 50px;
   margin-top: 10px;
+  /* height: 1px; */
+  color: #999999;
 }
 
 

@@ -108,7 +108,7 @@ router.post("/register", async (req, res) => {
       expiresIn: "5d",
     });
 
-    const { password, ...others } = user._doc;
+    const { password, verificationCode, ...others } = user._doc;
     res.status(200).json({ success: true, user: others, accessToken });
   } catch (err) {
     res.status(500).json(err);
@@ -128,7 +128,7 @@ router.post("/login", async (req, res) => {
       if (!validated) {
         res.status(400).json("Wrong credentials!");
       } else {
-        const { password, ...others } = user._doc; //check the user it has the _doc object for the user // also we seperated password from it
+        const { password, verificationCode, ...others } = user._doc; //check the user it has the _doc object for the user // also we seperated password from it
         // console.log(user._doc._id, "auth route");
         const accessToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
           expiresIn: "5d",
@@ -167,7 +167,7 @@ router.post("/verify", async (req, res) => {
 
     user.verified = true;
     await user.save();
-    const { password, ...others } = user._doc;
+    const { password, verificationCode, ...others } = user._doc;
 
     res.status(200).json({
       success: true,
@@ -227,7 +227,7 @@ router.post("/googlesignin", async (req, res) => {
           expiresIn: "5d",
         });
 
-        const { password, ...others } = userNw._doc;
+        const { password, verificationCode, ...others } = userNw._doc;
         //mail send
         sendEmail("Welcome to InkSpotBlog!", userNw.email, template);
         res.status(200).json({ success: true, user: others, accessToken });
@@ -238,7 +238,7 @@ router.post("/googlesignin", async (req, res) => {
     } else {
       //login simple
       // console.log("user found");
-      const { password, ...others } = user._doc; //check the user it has the _doc object for the user // also we seperated password from it
+      const { password, verificationCode, ...others } = user._doc; //check the user it has the _doc object for the user // also we seperated password from it
       // console.log(user._doc._id, "auth route");
       const accessToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
         expiresIn: "5d",
