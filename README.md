@@ -1,6 +1,6 @@
 # inkspotblog-mern-project
 # deployed link: https://inkspotblog.netlify.app/ 
-( The backend is a little slower because it's hosted for free on Render.
+( The backend is little slower because it's hosted for free on Render.
 The backend link is: https://inkspotblog-backend.onrender.com/ )
 
 ### Features
