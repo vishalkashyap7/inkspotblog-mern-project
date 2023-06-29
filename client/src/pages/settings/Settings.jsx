@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
@@ -251,6 +251,11 @@ export default function Settings() {
           <button className="settingsSubmit" type="submit"  disabled={isFetching}>
             Update <i className="fa-solid fa-rotate"></i>
           </button>
+          <p className="forgotPwd">
+            <Link className="link regButton" to="/resetpwd">
+              Forgot password?
+            </Link>
+          </p>
         </form>
         <span className="settingsDeleteTitle">
             <Button variant="contained" color="error" onClick={handleClickOpen} disabled={isFetching}>

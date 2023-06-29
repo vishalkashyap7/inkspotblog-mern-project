@@ -28,6 +28,7 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
+    resetTokenUsed: { type: Boolean, default: false }
   },
   { timestamps: true }//shotcut to store the updatedAt and createdAt time
 );

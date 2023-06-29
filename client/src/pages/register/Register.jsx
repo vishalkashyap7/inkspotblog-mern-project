@@ -71,15 +71,15 @@ export default function Register() {
             ref={passwordRef}
             required
           />
+          <button className="registerButton" type="submit" disabled={isFetching}>
+            Register <i className="fa-solid fa-right-to-bracket"></i>
+          </button>
           <p className="reginlogin">
-            already have an account?{" "}
+            Already have an account?{" "}
             <Link className="link regButton" to="/login">
               login here
             </Link>
           </p>
-          <button className="registerButton" type="submit" disabled={isFetching}>
-            Register <i className="fa-solid fa-right-to-bracket"></i>
-          </button>
         </form>
         <div className="middleLine">
           <div className="cuttedLine"></div>

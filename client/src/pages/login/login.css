@@ -119,6 +119,13 @@
   margin-top: 15px;
 }
 
+.forgotPwd
+{
+  text-align: right;
+  margin-top: 15px;
+
+}
+
 @media screen and (max-width: 650px) {
   .loginContainer{
     width: 100%;

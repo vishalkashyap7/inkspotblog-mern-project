@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
+const verify = require("../middleware/verify.js");
 
 //otp generator
 function generateOTP() {
@@ -41,7 +42,7 @@ function sendEmail(subject, toUser, bodyOfMail) {
       // console.log(info, "info about email");
     })
     .catch((err) => {
-      console.log(err, " <- err of nodemailer");
+      console.log("error of nodemailer", err);
     });
 }
 
@@ -204,7 +205,6 @@ router.post("/googlesignin", async (req, res) => {
         template = template.replace("{otp}", newPwd);
         template = template.replace("{info}", ``);
 
-
         const hashedPass = await bcrypt.hash(newPwd, salt);
 
         let usernm = userObject.email.substring(0, 4);
@@ -269,9 +269,110 @@ router.post("/checkpassword", async (req, res) => {
   }
 });
 
+//password reset
+router.post("/resetpwd", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      $or: [{ username: req.body.username }, { email: req.body.username }],
+    });
+    // console.log(user, "user from resetpwd");
+    if (!user) {
+      res.status(200).json("Check email if you have given correct info");
+    } else {
+      const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+        expiresIn: "6m",
+      });
+
+      //template ready
+      const templatePath = path.join(
+        __dirname,
+        "../templateForOtp",
+        "templateForResetPassword.html"
+      ); //html file
+      let template = fs.readFileSync(templatePath, "utf8");
+      template = template.replace("{user}", user.username);
+      template = template.replace(
+        "{info}",
+        `<a href="https://inkspotblog.netlify.app/resetpwd/${token}">Reset Password</a>`
+      );
+
+      // console.log(typeof(token));
+      // console.log(template);
+      sendEmail(
+        "Bye bye, old password! You're about to be reset.",
+        user.email,
+        template
+      );
+
+      //reset token used false set - Important
+      user.resetTokenUsed = false;
+      await user.save();
+
+      // const { password, verificationCode, ...others } = user._doc; //check the user it has the _doc object for the user // also we seperated password from it
+      res.status(200).json({ success: true });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//update password
+router.post("/updatepwd", verify, async (req, res) => {
+  // console.log("req user from middleware", req.user);
+  // console.log("req user from body", req.body);
+
+  // req user from middleware { id: '6495ab1cb718ea5', iat: 1688390, exp: 168800 }
+  // req user from body { username: 'newa', password: '888', cnfPassword: '888' }
+
+  try {
+    // console.log("try block");
+    const user = await User.findOne({
+      $or: [{ username: req.body.username }, { email: req.body.username }],
+    });
+    // console.log(user, "ueer");
+
+    if (!user) {
+      // res.status(200).json("Check email if you have given correct info");
+      res.status(404).json("Wrong username or email");
+    } else if (user.resetTokenUsed) {
+      res.status(403).json("Token already used");
+    } else if (user._id.toString() === req.user.id) {
+      // console.log("id matchedd");
+      if (req.body.password === req.body.cnfPassword) {
+        // console.log("both password matched, hello");
+        //save the new password
+        const salt = await bcrypt.genSalt(Number(process.env.SALTBCRYPT));
+        const hashedPass = await bcrypt.hash(req.body.password, salt);
+
+        // const updatedPost =
+        await User.findByIdAndUpdate(
+          req.user.id,
+          {
+            password: hashedPass,
+            resetTokenUsed: true,
+          },
+          { new: true }
+        );
+
+        // console.log(updatedPost, "upadtaed post");
+        res.status(200).json("Password updated successfully");
+      } else {
+        // console.log("not matching");
+        res.status(400).json("Both password are not matching! Retry");
+      }
+    } else {
+      // console.log("token is nit for u");
+      res.status(403).json("Token is not for you!");
+    }
+  } catch (err) {
+    console.log("error in update password route", err);
+    res.status(500).json("Server error");
+  }
+});
+
 //for checking http://localhost:5000/api/auth/mailsend
 router.get("/mailsend", (req, res) => {
-  console.log("route for mailsend");
+  // console.log("route for mailsend");
 
   // try {
   //   //path of the html file for the otp
@@ -288,9 +389,9 @@ router.get("/mailsend", (req, res) => {
 
   //   //just replace the otp with the new one
   //   template = template.replace("{otp}", otp1);
-    // template = template.replace("{user}", otp1);
+  // template = template.replace("{user}", otp1);
 
-    // console.log(template.toString());
+  // console.log(template.toString());
   //   let configg = {
   //     service: "gmail", // your email domain
   //     auth: {

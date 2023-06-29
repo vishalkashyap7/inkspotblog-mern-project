@@ -19,6 +19,7 @@ import About from "./pages/about/About";
 //aos
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ResetPassword from "./pages/resetPassword/ResetPassword";
 
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
         <Route path="/search" element={<Search />}></Route>
         <Route path="/verifyotp" element={<VerifyOtp />}></Route>
         <Route path="/about" element={<About />}></Route>
+        <Route exact path="/resetpwd" element={<ResetPassword />}></Route>
+        <Route path="/resetpwd/:token" element={<ResetPassword />}></Route>
         <Route path="*" element={<Error />}></Route>
       </Routes>
       <Footer/>
@@ -49,4 +52,5 @@ function App() {
   );
 }
 
+//check settings page css for disable button css
 export default App;

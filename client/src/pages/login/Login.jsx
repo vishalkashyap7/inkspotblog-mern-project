@@ -56,15 +56,20 @@ export default function Login() {
             ref={passwordRef}
             required
           />
+          <p className="forgotPwd">
+            <Link className="link regButton" to="/resetpwd">
+              Forgot password?
+            </Link>
+          </p>
+          <button className="loginButton" type="submit" disabled={isFetching}>
+            Login <i className="fa-solid fa-right-to-bracket"></i>
+          </button>
           <p className="reginlogin">
             Don't have an account?{" "}
             <Link className="link regButton" to="/register">
               register here
             </Link>
           </p>
-          <button className="loginButton" type="submit" disabled={isFetching}>
-            Login <i className="fa-solid fa-right-to-bracket"></i>
-          </button>
         </form>
         <div className="middleLine">
           <div className="cuttedLine"></div>
