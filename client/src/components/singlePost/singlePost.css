@@ -79,6 +79,7 @@
   font-size: 20px;
   line-height: 25px;
   text-align: justify;
+  line-height: 32px;
 }
 
 .singlePostDesc::first-letter {
@@ -176,7 +177,7 @@
   .singlePostDesc{
     color: #666;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 23px;
     min-height: 250px;
   }
 

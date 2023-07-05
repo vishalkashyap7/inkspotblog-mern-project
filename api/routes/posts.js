@@ -80,7 +80,7 @@ router.get('/search', async (req, res) => {
     const posts = await Post.find({ title: { $regex: new RegExp(query, 'i') } });
     res.json(posts);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).send('Server Error');
   }
 });
@@ -96,23 +96,63 @@ router.get("/:id", async (req, res) => {
 });
 
 //GET ALL POSTS
-router.get("/", async (req, res) => {
-  const username = req.query.user;//for query
+// router.get("/", async (req, res) => {
+//   const username = req.query.user;//for query
+//   const catName = req.query.cat;
+//   try {
+//     let posts;
+//     if (username) {
+//       posts = await Post.find({ username });
+//     } else if (catName) {
+//       posts = await Post.find({
+//         categories: {
+//           $in: [catName],//similar to sql in
+//         },
+//       });
+//     } else {
+//       posts = await Post.find();
+//     }
+//     res.status(200).json(posts);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+router.get("/", async (req, res) => {//checking
+  const username = req.query.user;
   const catName = req.query.cat;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  // console.log(req.query);
   try {
     let posts;
+    let totalCount;
+
     if (username) {
-      posts = await Post.find({ username });
+      posts = await Post.find({ username }).skip((page - 1) * limit).limit(limit);
+      totalCount = await Post.countDocuments({ username });
+
     } else if (catName) {
       posts = await Post.find({
         categories: {
           $in: [catName],//similar to sql in
         },
-      });
+      }).skip((page - 1) * limit).limit(limit);
+      totalCount = await Post.countDocuments({ categories: { $in: [catName] } });
     } else {
-      posts = await Post.find();
+      posts = await Post.find().skip((page - 1) * limit).limit(limit);
+      totalCount = await Post.countDocuments();//to count the docs in Post model
     }
-    res.status(200).json(posts);
+
+    const totalPages = Math.ceil(totalCount / limit);
+    
+    res.status(200).json({
+      posts,
+      page,
+      totalPages,
+      totalCount,
+      limit
+    });
   } catch (err) {
     res.status(500).json(err);
   }
