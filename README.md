@@ -4,6 +4,8 @@
 The backend link is: https://inkspotblog-backend.onrender.com/ )
 
 ### Features
+- Pagination (New)
+- Forgot password option (New)
 - Sign-in using Google
 - E-mail authentication using OTP
 - JWT token gives extra layer of security
