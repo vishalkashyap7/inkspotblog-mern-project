@@ -6,7 +6,7 @@ import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "./context/Context";
 import Error from "./pages/error/Error";
 import Search from "./pages/search/Search";
@@ -23,8 +23,19 @@ import ResetPassword from "./pages/resetPassword/ResetPassword";
 
 
 function App() {
+  const [showTopBtn, setShowTopBtn] = useState(false);
   useEffect(() => {
     AOS.init();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+            setShowTopBtn(true);
+        } else {
+            setShowTopBtn(false);
+        }
+    });
   }, []);
   const { user } = useContext(Context);
 
@@ -47,6 +58,11 @@ function App() {
         <Route path="/resetpwd/:token" element={<ResetPassword />}></Route>
         <Route path="*" element={<Error />}></Route>
       </Routes>
+      { showTopBtn && <div className="scroll-to-top" data-aos="slide-left" onClick={()=>{
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}>
+        <i class="fa-solid fa-angle-up fa-2xl"></i>
+      </div>}
       <Footer/>
     </Router>
   );

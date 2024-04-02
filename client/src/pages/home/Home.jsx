@@ -24,6 +24,7 @@ export default function Home() {
           const res = await axios.get(`${url}/api/posts?page=${page}&limit=6`);
           setPosts(res.data.posts);
           setTotalPages(res.data.totalPages);
+          window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
           const res = await axios.get(
             `${url}/api/posts${search}&page=${page}&limit=6`
@@ -126,6 +127,7 @@ export default function Home() {
         <p>
           Page {page} of {totalPages}
         </p>
+        {/* pagination added here */}
         <div className="pagination">
           <div className="pageNavButton">
             <button onClick={handleFirstPage} disabled={page === 1}>
