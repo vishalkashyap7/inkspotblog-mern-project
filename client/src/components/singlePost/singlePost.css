@@ -1,9 +1,13 @@
 .singlePost {
   flex: 1;
+  margin: 28px;
 }
 
 .singlePostWrapper {
   padding: 20px;
+  padding-top: 10px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .singlePostImg {
@@ -21,6 +25,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.disable {
+  opacity: 0.5;
 }
 
 .singlePostTitleInput {
@@ -76,10 +84,10 @@
 
 .singlePostDesc {
   color: #666;
-  font-size: 20px;
+  font-size: 26px;
   line-height: 25px;
   text-align: justify;
-  line-height: 32px;
+  line-height: 38px;
 }
 
 .singlePostDesc::first-letter {
@@ -172,6 +180,29 @@
   cursor: zoom-out;
 }
 
+.PostButtons {
+  margin-top: 50px;
+  position: center;
+  /* margin-right: 200px; */
+  /* margin-left: 200px; */
+  align-items: center;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  padding-top: 10px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.likeSpan {
+  margin-right: 22px;
+  cursor: pointer;
+}
+
+.containerOtherThanPhoto {
+  padding-left: 50px;
+}
 
 @media screen and (max-width: 700px) {
   .singlePostDesc{
@@ -208,5 +239,17 @@
     font-size: 20px;
     text-align: left;
   }
-  
+
+  .singlePost {
+    margin: 12px;
+  }
+
+  .singlePostWrapper {
+    padding: 8px;
+  }
+
+  .PostButtons {
+    padding: 8px;
+    margin-top: 10px;
+  }
 }

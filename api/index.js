@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
+const postLikeRoute = require("./routes/likeButton/postLikes");
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
 const path = require("path");
@@ -45,6 +46,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
+app.use("/api/postlikes", postLikeRoute);
 
 app.listen(port, () => {
   console.log(`Backend is running on port ${port}.`);
