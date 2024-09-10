@@ -6,3 +6,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.loading-div {
+    height: 300px;
+    padding-top: 100px;
+}
